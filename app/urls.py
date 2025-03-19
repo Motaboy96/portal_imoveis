@@ -22,6 +22,7 @@ from houses.views import ImoveisListView, ImoveisRentListView, ImoveisDetailView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', ImoveisListView.as_view(), name='imoveis_list'),
     path('imoveis/', ImoveisListView.as_view(), name='imoveis_list'),
     path('imoveis/aluguel', ImoveisRentListView.as_view(), name='imoveis_rent_list'),
     path('imoveis/<int:pk>/', ImoveisDetailView.as_view(), name='imovel_detail'),
