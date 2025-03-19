@@ -1,0 +1,98 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}{% endblock %}</title>
+  <style>
+    body {
+        font-family: 'Open Sans', sans-serif;
+        background-color: #f7f7f7;
+        color: #333;
+        margin: 0;
+        padding: 0;
+        margin-top: 60px;
+    }
+
+    header {
+        background-color: #0096c7;
+        color: #fff;
+        text-align: center;
+    }
+
+    footer {
+        background-color: #ccc;
+        color: #333;
+        padding: 20px;
+        text-align: center;
+    }
+
+    nav {
+        background-color: #0096c7;
+        color: #fff;
+        height: 50px;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: fixed;
+        z-index: 1000;
+        top: 0;  /* Garantir que o nav fique no topo */
+        left: 0;
+        right: 0;
+    }
+
+    nav ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+    }
+
+    nav ul li {
+        margin: 0 10px;
+    }
+
+    nav ul li a {
+        color: #fff;
+        text-decoration: none;
+        font-size: 16px;
+        padding: 15px;
+        transition: all 0.3s ease;
+    }
+
+    nav ul li a:hover {
+        background-color: #32bbe8;
+    }
+
+    nav ul li.active a {
+        background-color: #666;
+    }
+
+    nav ul li.active a:hover {
+        background-color: #999;
+    }
+
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+      <ul>
+        <li><a href="{% url 'imoveis_list' %}">Imóveis</a></li>
+        <li><a href="{% url 'imoveis_rent_list' %}">Alugar</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    {% block content %}
+    {% endblock %}
+  </main>
+
+  <footer>
+    <p>&copy; 2024 Imobiliaria ABCD</p>
+  </footer>
+</body>
+</html>
