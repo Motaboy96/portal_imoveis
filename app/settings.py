@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-2w+mxjsl@9oniv)f17i%8=vl(e*9gg+fb)i9v^^q$$!zk_%1#x
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["portal-imoveis.onrender.com", "localhost", "127.0.0.1"]
+ALLOWED_HOSTS = ['portal-imoveis.onrender.com']
 
 
 # Application definition
