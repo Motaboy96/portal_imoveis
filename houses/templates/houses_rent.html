@@ -1,0 +1,200 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <style>
+
+    .form-group {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 20px;
+      text-align: center;
+      padding: 20px;
+    }
+  
+    .form-container {
+      display: flex;
+      align-items: center; /* Alinha os elementos verticalmente no centro */
+      gap: 10px; /* Espaçamento entre os elementos */
+      padding: 10px;
+      border: 1px solid #ccc; /* Adiciona uma borda ao redor */
+      border-radius: 8px; /* Bordas arredondadas */
+      background-color: #f9f9f9; /* Cor de fundo leve */
+      box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Sombra para destacar */
+    }
+  
+  
+    .imoveis-destaque {
+      text-align: center; /* Centraliza o título */
+      margin-bottom: 40px; /* Espaço abaixo do título */
+    }
+  
+    .imoveis-titulo {
+      font-family: 'Roboto', Christian-Robertson; /* Ajuste a fonte conforme desejado */
+      font-size: 1.8rem; /* Tamanho da fonte (você pode ajustar para o valor que preferir) */
+      color: #333; /* Cor do texto */
+      margin-bottom: 20px; /* Espaço abaixo do título */
+    } 
+  
+  
+    .imoveis-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin: 0 auto;
+      max-width: 1200px;
+      padding: 20px;
+    }
+  
+    .imoveis-card {
+      background-color: #e3e1e1;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+      border-radius: 10px;
+      overflow: hidden;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+  
+    .imoveis-card:hover {
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+      transform: translateY(-2px);
+    }
+  
+    .imoveis-card img {
+      width: 100%;
+      height: 300px;
+      object-fit: cover;
+    }
+  
+    .imoveis-card h3 {
+      font-size: 20px;
+      margin-top: 10px;
+      margin-bottom: 5px;
+    }
+  
+    .imoveis-card h2 {
+      font-size: 1.3rem;
+      margin: 10px;
+    }
+  
+    .imoveis-card p {
+      font-size: 1rem;
+      margin-bottom: 10px;
+    }
+  
+    @media (max-width: 768px) {
+      .imoveis-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  
+    input[type="text"] {
+      padding: 10px;
+      font-size: 16px;
+      border: 2px solid #e3e1e1;
+      border-radius: 4px;
+      margin-right: 10px;
+      transition: border-bottom-color 0.3s ease-in-out;
+      width: 260px;
+    }
+  
+    /* Placeholder do input */
+    input[type="text"]::placeholder {
+      color: #aaaab8; /* Placeholder cinza claro */
+    }
+  
+    /* Foco do input */
+    input[type="text"]:focus {
+      outline: none;
+      border-bottom-color: #e3e1e1;
+    }
+  
+    select {
+      padding: 10px;
+      font-size: 16px;
+      border: 2px solid #e3e1e1;
+      border-radius: 4px;
+      margin-right: 10px;
+      transition: border-bottom-color 0.3s ease-in-out;
+      color: #aaaab8; /* Cor do texto digitado */
+    }
+  
+    select option {
+      color: #aaaab8; /* Cor padrão para as opções (preto ou outra cor desejada) */
+    }
+  
+    /* Placeholder simulado no select */
+    select option[value=""][disabled] {
+      color: #aaaab8; /* Cor cinza claro para o placeholder */
+    }
+  
+    button[type="submit"] {
+      background-color: #0096c7;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s ease-in-out;
+    }
+  
+    button[type="submit"]:hover {
+      background-color: #108eb8;
+    }
+  
+    a {
+      font-size: 18px;
+      color: #333;
+      text-decoration: none;
+    }
+  
+    a:hover {
+      color: #0096c7;
+    }
+  
+  </style>
+
+
+    <div class="form-group">
+        <form method="GET" action="{% url 'imoveis_rent_list' %}">
+        <div class="form-container">
+            <select name="tipo">
+            <option value="" disabled selected>Selecione o tipo de imóvel</option>
+            <option value="Apartamento">Apartamento</option>
+            <option value="Casa">Casa</option>
+            <option value="Terreno">Terreno</option>
+            <option value="Comercial">Comercial</option>
+            </select>
+            <input type="hidden" name="pretensao" value="Aluguel">
+            <input type="text" name="search" placeholder="Digite condomínio, bairro ou cidade">
+            
+            <button type="submit">Buscar</button>
+        </div>
+        </form>
+    </div>
+    
+    <div class="imoveis-destaque">
+        <h2 class="imoveis-bairro">Imóveis para Aluguel</h2>
+        <div class="imoveis-grid">
+        {% if imoveis_rent %}
+            {% for imovel in imoveis_rent %}
+            <a href="{% url 'imovel_detail' imovel.pk %}">
+                <div class="imoveis-card">
+                {% if imovel.imovel_imagens.all %}
+                    <img src="{{ imovel.imovel_imagens.first.imagem.url }}" alt="{{ imovel.bairro }} - {{ imovel.valor }}">
+                {% else %}
+                    <p>Sem imagem disponível</p>  
+                {% endif %}
+                <h2>{{ imovel.bairro }} - R$ {{ imovel.valor }}</h2>
+                <p>{{ imovel.quartos }} quartos - {{ imovel.vagas_garagem }} Vagas de garagem</p>
+                </div>
+            </a>
+            {% endfor %}
+        {% else %}
+            <p class="no-results">Nenhum imóvel disponível para aluguel.</p>
+        {% endif %}
+        </div>
+    </div>
+{% endblock %}

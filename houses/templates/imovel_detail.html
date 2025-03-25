@@ -1,0 +1,158 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+  <style>
+    .imovel-card-container {
+      display: flex;
+      flex-direction: row;
+      gap: 10px;
+      align-items: flex-start;
+      justify-content: center;
+      margin: 20px auto;
+    }
+
+    .imovel-card {
+      background-color: transparent; /* Remove o fundo do card */
+      box-shadow: none; /* Remove a sombra */
+      border-radius: 0; /* Remove o arredondamento das bordas */
+      overflow: visible; /* Garante que a imagem não fique cortada */
+      transition: none; /* Remove qualquer efeito de transição */
+      max-width: 100%; /* Ajusta o tamanho máximo da imagem */
+      margin: 0; /* Remove a margem */
+      padding: 0;
+    }
+
+    /* .imovel-card:hover {
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+      transform: translateY(-2px);
+    } */
+
+    .imovel-card img {
+      margin-top: 50px;
+      width: 100%;
+      height: 400px;
+      object-fit: cover;
+      border-radius: 10px;
+      display: block;
+    }
+
+    * {
+      box-sizing: border-box; /* Garante que o padding e a borda sejam incluídos nas dimensões dos elementos */
+    }
+
+    .titulo-imovel {
+      font-size: 15px; /* Ajuste o tamanho da fonte conforme necessário */
+      margin: 20px; /* Margem de 20px nas 4 direções */
+      margin-top: 100px;
+      margin-left: 10%; /* Margem da lateral esquerda */
+      margin-right: 10%; /* Margem da lateral direita */
+      text-align: left; /* Centraliza o título */
+    }
+
+    .imovel-card h2 {
+      font-size: 1.5rem;
+      margin: 10px;
+    }
+
+    .imovel-card p {
+      font-size: 1rem;
+      margin-bottom: 10px;
+    }
+
+    .imovel-descricao {
+      margin-top: 50px;
+      background-color: #f4f4f4; /* Adiciona fundo branco ao card de descrição */
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* Sombra suave para o card */
+      border-radius: 10px; /* Bordas arredondadas */
+      padding: 20px; /* Espaçamento interno para a descrição */
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: space-between;
+      padding-left: 100px;
+      max-width: 300px;
+      height: 400px;
+    }
+
+    .imovel-descricao h2 {
+      font-size: 1.2rem;
+      text-align: left;
+    }
+
+    .imovel-descricao p {
+      text-align: left;
+      font-size: 1rem;
+      
+    }
+
+    .buttons-container {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+      margin-bottom: 20px;
+    }
+
+    .btn {
+      display: inline-block;
+      background-color: #0096c7;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s ease-in-out;
+      margin: 0 10px;
+    }
+
+    .btn:hover {
+      background-color: #108eb8;
+    }
+
+    .btn-danger {
+      background-color: #d9534f;
+      text-decoration: none !important;
+    }
+
+    .btn-danger:hover {
+      background-color: #d2221c;
+    }
+
+    .error-message {
+      color: #d9534f;
+      font-size: 14px;
+      margin-top: 5px;
+    }
+
+    a {
+      text-decoration: none !important;
+    }
+  </style>
+
+  
+
+  <div class="titulo-imovel">
+    <h1>{{ object.tipo }} com {{ object.quartos }} quartos para {{ object.pretensao }}, {{ object.area }} m² por R$ {{ object.valor }} - {{ object.bairro }} - {{ object.cidade }}
+  </div>
+
+  <div class="imovel-card-container">
+    <div class="imovel-card">
+      {% if object.imovel_imagens.all %}
+        <img src="{{ object.imovel_imagens.first.imagem.url }}" alt="{{ object.bairro }} - {{ object.rua }}">
+      {% else %}
+          <p>Sem imagem disponivel</p>
+      {% endif %}
+    </div>
+
+    <div class="imovel-descricao">
+      <h2>{{ object.bairro }} - {{ object.rua }}</h2>
+      <p><strong>Quartos:</strong> {{ object.quartos }}</p>
+      <p><strong>Banheiros:</strong> {{ object.banheiros }}</p>
+      <p><strong>Área:</strong> {{ object.area }}</p>
+      <p><strong>Preço:</strong> R$ {{ object.valor }}</p>
+    </div>
+  </div>
+  
+{% endblock %}
