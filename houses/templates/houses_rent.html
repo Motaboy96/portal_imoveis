@@ -85,9 +85,30 @@
   
     @media (max-width: 768px) {
       .imoveis-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
+      grid-template-columns: repeat(1, 1fr);
     }
+
+    .form-group {
+      padding: 10px;
+    }
+    
+    .form-container {
+      flex-direction: column;
+      width: 90%;
+      padding: 15px;
+    }
+
+    .form-container input,
+    .form-container select,
+    .form-container button {
+      width: 100%;
+      max-width: 300px;
+      padding: 10px;
+      font-size: 16px;
+      border: 2px solid #e3e1e1;
+      border-radius: 4px;
+    }
+  }
   
     input[type="text"] {
       padding: 10px;
