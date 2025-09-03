@@ -10,8 +10,8 @@ class Bairros(models.Model):
         return self.bairro
 
     class Meta:
-        verbose_name = "Bairro"  # Nome no singular
-        verbose_name_plural = "Bairros"  # Nome no plural
+        verbose_name = "Bairro"  
+        verbose_name_plural = "Bairros" 
 
 
 class Imoveis(models.Model):
